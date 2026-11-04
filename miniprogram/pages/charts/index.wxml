@@ -1,0 +1,23 @@
+<import src="../../templates/benchmark.wxml" />
+<view class="screen">
+  <view class="intro">
+    <text class="eyebrow">NATIVE CANVAS / V1</text>
+    <text class="title">Canvas 图表</text>
+    <text class="description">在 Canvas 2D 上重放绘制、提示、平移、缩放和选区，共 12 个步骤。</text>
+  </view>
+
+  <template is="benchmark" data="{{ready, running, progress, hasReport, summary, reportDetails, lastError}}" />
+
+  <view class="panel">
+    <view class="heading">图表预览</view>
+    <view class="actions">
+      <button wx:for="{{groups}}" wx:key="id" class="button {{activeGroup === item.id ? 'button-primary' : 'button-secondary'}}"
+        data-group="{{item.id}}" disabled="{{!ready || running}}" bindtap="onGroup">{{item.label}}</button>
+    </view>
+    <canvas type="2d" id="native-canvas" class="native-canvas" />
+    <view class="actions chart-actions">
+      <button wx:for="{{actions}}" wx:key="id" class="button button-secondary" data-action="{{item.action}}"
+        disabled="{{!ready || running}}" bindtap="onAction">{{item.actionLabel}}</button>
+    </view>
+  </view>
+</view>

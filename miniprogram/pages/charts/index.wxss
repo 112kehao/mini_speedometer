@@ -1,0 +1,12 @@
+@import "../../styles/workloads.wxss";
+
+.native-canvas {
+  display: block;
+  width: 100%;
+  height: 440rpx;
+  background: #f8faff;
+}
+
+.chart-actions {
+  margin-bottom: 0;
+}

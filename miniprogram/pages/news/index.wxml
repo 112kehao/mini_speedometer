@@ -1,0 +1,44 @@
+<import src="../../templates/benchmark.wxml" />
+<view class="screen">
+  <view class="intro">
+    <text class="eyebrow">NATIVE NEWS / V1</text>
+    <text class="title">新闻导航</text>
+    <text class="description">每个栏目先展开、收起菜单 25 轮，再切换新闻列表。</text>
+  </view>
+
+  <template is="benchmark" data="{{ready, running, progress, hasReport, summary, reportDetails, lastError}}" />
+
+  <view class="panel news">
+    <view class="news-header">
+      <view>
+        <view class="masthead">今日简报</view>
+        <view class="hint">本地测试样刊</view>
+      </view>
+      <button class="button button-secondary menu-button" disabled="{{running}}" bindtap="onToggleMenu">{{menuOpen ? '收起' : '栏目'}}</button>
+    </view>
+    <view wx:if="{{menuOpen}}" id="news-menu" class="news-menu">
+      <button wx:for="{{sections}}" wx:key="id" class="button section-button {{channel === item.id ? 'selected' : ''}}"
+        data-channel="{{item.id}}" disabled="{{running}}" bindtap="onSection">{{item.label}}</button>
+    </view>
+
+    <view wx:if="{{selectedArticle}}" class="article">
+      <button class="button button-secondary" bindtap="onCloseStory">返回栏目</button>
+      <view class="heading article-title">{{selectedArticle.title}}</view>
+      <view class="hint">{{selectedArticle.category}} · {{selectedArticle.edition}}</view>
+      <view class="description article-body">{{selectedArticle.body}}</view>
+    </view>
+    <view wx:else class="news-feed" data-channel="{{channel}}">
+      <view class="section-header">
+        <view class="section-kicker">NEWS DESK</view>
+        <view class="section-title">{{sectionTitle}}</view>
+      </view>
+      <view wx:for="{{articles}}" wx:key="id" class="story" data-story="{{item.id}}" bindtap="onStory">
+        <view class="story-index">{{index + 1}}</view>
+        <view>
+          <view class="story-title">{{item.title}}</view>
+          <view class="hint">{{item.summary}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

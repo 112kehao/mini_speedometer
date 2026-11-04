@@ -1,0 +1,60 @@
+<view class="screen">
+  <view class="intro">
+    <text class="eyebrow">NATIVE TODO / V1</text>
+    <text class="title">小程序响应基准</text>
+    <text class="description">逐项新增、完成和删除 100 个待办，测量从处理操作到 setData 回调的耗时。</text>
+  </view>
+
+  <view class="panel">
+    <view class="heading">其他原生场景</view>
+    <view class="suite-links">
+      <navigator class="suite-link" url="/pages/news/index">新闻</navigator>
+      <navigator class="suite-link" url="/pages/editor/index">编辑器</navigator>
+      <navigator class="suite-link" url="/pages/charts/index">图表</navigator>
+    </view>
+  </view>
+
+  <view class="panel">
+    <view class="heading">自动测试</view>
+    <view class="hint">2 轮预热 · 10 轮测量 · 每轮 300 次更新</view>
+    <view class="status" wx:if="{{progress}}">{{progress}}</view>
+    <button wx:if="{{running}}" class="button button-secondary" bindtap="onStop">停止测试</button>
+    <button wx:else class="button button-primary" disabled="{{!ready}}" bindtap="onRun">开始测试</button>
+  </view>
+
+  <view wx:if="{{hasReport}}" class="panel">
+    <view class="heading">测量结果</view>
+    <view class="hint">{{reportDetails}}</view>
+    <view wx:for="{{summary}}" wx:key="id" class="result">
+      <view class="result-heading">
+        <text>{{item.label}}</text>
+        <text class="phase-time">阶段中位数 {{item.phaseMedianMs}} ms</text>
+      </view>
+      <view class="hint">单次响应 P50 {{item.responseP50Ms}} ms · P95 {{item.responseP95Ms}} ms</view>
+      <view class="hint">{{item.sampleCount}} 个样本 · 每轮 {{item.setDataCallsPerRound}} 次提交 · 约 {{item.payloadBytesPerRound}} B</view>
+    </view>
+    <button class="button button-secondary" bindtap="onCopyReport">复制原始 JSON</button>
+  </view>
+
+  <view class="panel">
+    <view class="todo-header">
+      <text class="heading">待办列表</text>
+      <text class="todo-count" data-remaining="{{remaining}}">剩余 {{remaining}} 项</text>
+    </view>
+    <view class="entry">
+      <input class="todo-input" value="{{draft}}" disabled="{{running}}" placeholder="输入待办事项"
+        confirm-type="done" bindinput="onInput" bindconfirm="onAdd" />
+      <button class="button button-primary add-button" disabled="{{running}}" bindtap="onAdd">新增</button>
+    </view>
+    <view wx:if="{{items.length === 0}}" id="todo-empty" class="todo-empty">暂无待办</view>
+    <view wx:for="{{items}}" wx:key="id" class="todo-row" data-id="{{item.id}}" data-state="{{item.done ? 'done' : 'open'}}">
+      <checkbox-group class="todo-group" data-id="{{item.id}}" bindchange="onToggle">
+        <label class="todo-check">
+          <checkbox value="done" checked="{{item.done}}" disabled="{{running}}" color="#2457c5" />
+          <text class="todo-text {{item.done ? 'is-done' : ''}}">{{item.title}}</text>
+        </label>
+      </checkbox-group>
+      <button class="button remove-button" data-id="{{item.id}}" disabled="{{running}}" bindtap="onRemove">删除</button>
+    </view>
+  </view>
+</view>

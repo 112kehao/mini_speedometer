@@ -1,0 +1,16 @@
+{
+  "pages": [
+    "pages/todo/index",
+    "pages/news/index",
+    "pages/editor/index",
+    "pages/charts/index"
+  ],
+  "renderer": "webview",
+  "window": {
+    "navigationBarTitleText": "小程序 Speedometer",
+    "navigationBarBackgroundColor": "#f3f5f8",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#f3f5f8"
+  },
+  "sitemapLocation": "sitemap.json"
+}

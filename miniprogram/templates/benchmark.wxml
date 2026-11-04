@@ -1,0 +1,24 @@
+<template name="benchmark">
+  <view class="panel">
+    <view class="heading">自动测试</view>
+    <view class="hint">2 轮预热 · 10 轮测量</view>
+    <view class="status" wx:if="{{progress}}">{{progress}}</view>
+    <button wx:if="{{running}}" class="button button-secondary" bindtap="onStop">停止测试</button>
+    <button wx:else class="button button-primary" disabled="{{!ready}}" bindtap="onRun">开始测试</button>
+  </view>
+
+  <view wx:if="{{hasReport}}" class="panel">
+    <view class="heading">测量结果</view>
+    <view class="hint">{{reportDetails}}</view>
+    <view wx:if="{{lastError}}" class="hint">最近失败原因 · {{lastError}}</view>
+    <view wx:for="{{summary}}" wx:key="id" class="result">
+      <view class="result-heading">
+        <text>{{item.label}}</text>
+        <text class="phase-time">{{item.phaseMedianMs}} ms</text>
+      </view>
+      <view class="hint">阶段中位数 · 单次 P50 {{item.responseP50Ms}} ms · P95 {{item.responseP95Ms}} ms</view>
+      <view class="hint">{{item.sampleCount}} 个操作样本</view>
+    </view>
+    <button class="button button-secondary" bindtap="onCopyReport">复制原始 JSON</button>
+  </view>
+</template>

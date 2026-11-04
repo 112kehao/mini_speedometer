@@ -1,0 +1,6 @@
+{
+  "appid": "touristappid",
+  "projectname": "miniprogram-speedometer",
+  "compileType": "miniprogram",
+  "miniprogramRoot": "miniprogram/"
+}

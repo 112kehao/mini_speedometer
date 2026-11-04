@@ -1,0 +1,91 @@
+@import "../../styles/workloads.wxss";
+
+.todo-header,
+.entry,
+.todo-row,
+.todo-check {
+  display: flex;
+  align-items: center;
+}
+
+.todo-header,
+.todo-row {
+  justify-content: space-between;
+}
+
+.todo-count,
+.todo-empty {
+  color: #53637a;
+}
+
+.entry {
+  margin-top: 18rpx;
+}
+
+.todo-input {
+  flex: 1;
+  min-width: 0;
+  height: 76rpx;
+  padding: 0 18rpx;
+  border: 1rpx solid #d7dfeb;
+  border-radius: 12rpx;
+}
+
+.add-button {
+  flex: none;
+  margin: 0 0 0 12rpx;
+}
+
+.todo-empty {
+  margin-top: 24rpx;
+  text-align: center;
+}
+
+.todo-row {
+  min-height: 86rpx;
+  border-bottom: 1rpx solid #e9edf3;
+}
+
+.todo-group {
+  flex: 1;
+  min-width: 0;
+}
+
+.todo-check {
+  min-height: 86rpx;
+}
+
+.todo-text {
+  padding-left: 10rpx;
+  word-break: break-all;
+}
+
+.is-done {
+  color: #617088;
+  text-decoration: line-through;
+}
+
+.remove-button {
+  flex: none;
+  margin: 0 0 0 12rpx;
+  padding: 0 16rpx;
+  background: #f8eef1;
+  color: #9a304e;
+  font-size: 24rpx;
+  line-height: 58rpx;
+}
+
+.suite-links {
+  display: flex;
+  gap: 12rpx;
+  margin-top: 18rpx;
+}
+
+.suite-link {
+  flex: 1;
+  padding: 16rpx 6rpx;
+  border-radius: 12rpx;
+  background: #ecf2ff;
+  color: #1b4bac;
+  text-align: center;
+}

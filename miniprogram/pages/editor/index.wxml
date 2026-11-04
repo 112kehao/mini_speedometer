@@ -1,0 +1,23 @@
+<import src="../../templates/benchmark.wxml" />
+<view class="screen">
+  <view class="intro">
+    <text class="eyebrow">NATIVE EDITOR / V1</text>
+    <text class="title">原生编辑器</text>
+    <text class="description">用微信 editor 载入长代码和长文，再应用语法着色与全文加粗。</text>
+  </view>
+
+  <template is="benchmark" data="{{ready, running, progress, hasReport, summary, reportDetails, lastError}}" />
+
+  <view class="panel">
+    <view class="heading">编辑区域</view>
+    <view class="hint">可直接输入。加载样稿会替换编辑内容，自动测试结束后会恢复测试前的文档。</view>
+    <view class="actions">
+      <button class="button button-secondary" disabled="{{!ready || running}}" data-step="0" bindtap="onExample">长代码</button>
+      <button class="button button-secondary" disabled="{{!ready || running}}" data-step="1" bindtap="onExample">代码着色</button>
+      <button class="button button-secondary" disabled="{{!ready || running}}" data-step="2" bindtap="onExample">长文</button>
+      <button class="button button-secondary" disabled="{{!ready || running}}" data-step="3" bindtap="onExample">长文加粗</button>
+    </view>
+    <editor id="native-editor" class="native-editor" placeholder="点击输入或加载样稿"
+      read-only="{{running || loadingExample}}" bindready="onEditorReady" />
+  </view>
+</view>
