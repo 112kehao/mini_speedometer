@@ -18,6 +18,7 @@ function benchmarkPage(suite, data = {}) {
       reportDetails: '',
       lastError: '',
       summary: [],
+      scoring: null,
       ...data
     },
 
@@ -38,7 +39,7 @@ function benchmarkPage(suite, data = {}) {
       let progress;
       let savedState;
       try {
-        this.setData({ running: true, progress: '准备测试', hasReport: false, summary: [], reportDetails: '', lastError: '' });
+        this.setData({ running: true, progress: '准备测试', hasReport: false, summary: [], scoring: null, reportDetails: '', lastError: '' });
         if (suite.capture) savedState = await suite.capture(this, run);
         this.report = await runSuite(this, run, suite);
         progress = reportProgress(this.report);
@@ -61,6 +62,7 @@ function benchmarkPage(suite, data = {}) {
             progress,
             hasReport: Boolean(report),
             summary: report ? report.summary : [],
+            scoring: report ? report.scoring : null,
             reportDetails: report ? `${report.environment.renderer} · ${report.clock}` : '',
             lastError: report && report.status === 'incomplete' && lastInvalidRound ? lastInvalidRound.reason : ''
           });

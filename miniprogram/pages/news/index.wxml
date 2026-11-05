@@ -6,7 +6,7 @@
     <text class="description">每个栏目先展开、收起菜单 25 轮，再切换新闻列表。</text>
   </view>
 
-  <template is="benchmark" data="{{ready, running, progress, hasReport, summary, reportDetails, lastError}}" />
+  <template is="benchmark" data="{{ready, running, progress, hasReport, summary, scoring, reportDetails, lastError}}" />
 
   <view class="panel news">
     <view class="news-header">

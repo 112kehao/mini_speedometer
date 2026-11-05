@@ -25,6 +25,10 @@
   <view wx:if="{{hasReport}}" class="panel">
     <view class="heading">测量结果</view>
     <view class="hint">{{reportDetails}}</view>
+    <view wx:if="{{scoring.sampleCount}}" class="result">
+      <view class="heading">小程序场景分{{scoring.complete ? '' : '（临时）'}} {{scoring.formattedMean}}</view>
+      <view wx:if="{{scoring.formattedDelta}}" class="hint">95% 置信区间 ± {{scoring.formattedDelta}}</view>
+    </view>
     <view wx:for="{{summary}}" wx:key="id" class="result">
       <view class="result-heading">
         <text>{{item.label}}</text>

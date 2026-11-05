@@ -6,7 +6,7 @@
     <text class="description">用微信 editor 载入长代码和长文，再应用语法着色与全文加粗。</text>
   </view>
 
-  <template is="benchmark" data="{{ready, running, progress, hasReport, summary, reportDetails, lastError}}" />
+  <template is="benchmark" data="{{ready, running, progress, hasReport, summary, scoring, reportDetails, lastError}}" />
 
   <view class="panel">
     <view class="heading">编辑区域</view>

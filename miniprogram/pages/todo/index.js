@@ -12,6 +12,7 @@ Page({
     remaining: 0,
     hasReport: false,
     reportDetails: '',
+    scoring: null,
     summary: []
   },
 
@@ -65,7 +66,7 @@ Page({
 
     let progress;
     try {
-      this.setData({ running: true, progress: '准备测试', hasReport: false, summary: [], reportDetails: '' });
+      this.setData({ running: true, progress: '准备测试', hasReport: false, summary: [], scoring: null, reportDetails: '' });
       this.report = await runBenchmark(this, run);
       progress = reportProgress(this.report);
     } catch (error) {
@@ -81,6 +82,7 @@ Page({
           progress,
           hasReport: Boolean(report),
           summary: report ? report.summary : [],
+          scoring: report ? report.scoring : null,
           reportDetails: report ? `${report.environment.renderer} · ${report.clock}` : ''
         });
       }

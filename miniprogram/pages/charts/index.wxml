@@ -6,7 +6,7 @@
     <text class="description">在 Canvas 2D 上重放绘制、提示、平移、缩放和选区，共 12 个步骤。</text>
   </view>
 
-  <template is="benchmark" data="{{ready, running, progress, hasReport, summary, reportDetails, lastError}}" />
+  <template is="benchmark" data="{{ready, running, progress, hasReport, summary, scoring, reportDetails, lastError}}" />
 
   <view class="panel">
     <view class="heading">图表预览</view>
