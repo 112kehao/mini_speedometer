@@ -1,1 +1,1 @@
-{ "navigationBarTitleText": "新闻导航基准" }
+{ "navigationBarTitleText": "新闻导航基准", "renderer": "webview" }

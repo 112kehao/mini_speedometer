@@ -8,6 +8,11 @@ function reportProgress(report) {
   return `测试完成 · ${counts}`;
 }
 
+function reportEnvironment(report) {
+  const { configuredRenderer, renderer } = report.environment;
+  return `配置 ${configuredRenderer} · 实际 ${renderer} · ${report.clock}`;
+}
+
 function benchmarkPage(suite, data = {}) {
   return {
     data: {
@@ -63,7 +68,7 @@ function benchmarkPage(suite, data = {}) {
             hasReport: Boolean(report),
             summary: report ? report.summary : [],
             scoring: report ? report.scoring : null,
-            reportDetails: report ? `${report.environment.renderer} · ${report.clock}` : '',
+            reportDetails: report ? reportEnvironment(report) : '',
             lastError: report && report.status === 'incomplete' && lastInvalidRound ? lastInvalidRound.reason : ''
           });
         }
@@ -84,4 +89,4 @@ function benchmarkPage(suite, data = {}) {
   };
 }
 
-module.exports = { benchmarkPage, reportProgress };
+module.exports = { benchmarkPage, reportProgress, reportEnvironment };

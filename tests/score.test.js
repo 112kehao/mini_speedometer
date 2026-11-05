@@ -48,7 +48,7 @@ test('invalid durations and samples cannot produce scores', () => {
   assert.throws(() => summarizeScores([{ score: Infinity }]));
 });
 
-async function fixture(measure, stopAtAttempt) {
+async function fixture(measure, stopAtAttempt, page = { renderer: 'webview' }) {
   const previousWx = global.wx;
   global.wx = {
     getDeviceInfo: () => ({ model: 'test', system: 'test', platform: 'test' }),
@@ -57,7 +57,7 @@ async function fixture(measure, stopAtAttempt) {
   const run = createRunControl();
   let attempt = 0;
   try {
-    return await runSuite({ renderer: 'webview' }, run, {
+    return await runSuite(page, run, {
       protocol: 'test-v1',
       steps: [{ id: 'first', label: 'First' }, { id: 'second', label: 'Second' }],
       async prepare() {
@@ -114,4 +114,14 @@ test('exhausted or immediately stopped runs have no score', async () => {
   const stopped = await fixture(() => 10, 1);
   assert.equal(stopped.status, 'stopped');
   assert.equal(stopped.scoring.mean, null);
+});
+
+test('reports preserve Skyline configuration separately from actual renderer', async () => {
+  const fallback = await fixture(() => 10, undefined, { route: 'pages/todo/skyline', renderer: 'webview' });
+  assert.equal(fallback.environment.configuredRenderer, 'skyline');
+  assert.equal(fallback.environment.renderer, 'webview');
+  assert.equal(fallback.environment.rendererFallback, true);
+  const skyline = await fixture(() => 10, undefined, { configuredRenderer: 'skyline', renderer: 'skyline' });
+  assert.equal(skyline.environment.configuredRenderer, 'skyline');
+  assert.equal(skyline.environment.rendererFallback, false);
 });

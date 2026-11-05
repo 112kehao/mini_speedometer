@@ -1,5 +1,8 @@
 <import src="../../templates/benchmark.wxml" />
+<import src="../../templates/renderer.wxml" />
+<scroll-view type="list" scroll-y class="benchmark-scroll">
 <view class="screen">
+  <template is="renderer-controls" data="{{configuredRenderer, actualRenderer, rendererFallback, supportsSkyline, running}}" />
   <view class="intro">
     <text class="eyebrow">NATIVE EDITOR / V1</text>
     <text class="title">原生编辑器</text>
@@ -21,3 +24,4 @@
       read-only="{{running || loadingExample}}" bindready="onEditorReady" />
   </view>
 </view>
+</scroll-view>

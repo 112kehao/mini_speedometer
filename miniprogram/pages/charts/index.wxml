@@ -1,5 +1,9 @@
 <import src="../../templates/benchmark.wxml" />
+<import src="../../templates/renderer.wxml" />
+<template is="renderer-navigation" data="{{configuredRenderer, statusBarHeight, running}}" />
+<scroll-view type="list" scroll-y class="benchmark-scroll">
 <view class="screen">
+  <template is="renderer-controls" data="{{configuredRenderer, actualRenderer, rendererFallback, supportsSkyline, running}}" />
   <view class="intro">
     <text class="eyebrow">NATIVE CANVAS / V1</text>
     <text class="title">Canvas 图表</text>
@@ -21,3 +25,4 @@
     </view>
   </view>
 </view>
+</scroll-view>

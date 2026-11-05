@@ -1,4 +1,8 @@
+<import src="../../templates/renderer.wxml" />
+<template is="renderer-navigation" data="{{configuredRenderer, statusBarHeight, running}}" />
+<scroll-view type="list" scroll-y class="benchmark-scroll">
 <view class="screen">
+  <template is="renderer-controls" data="{{configuredRenderer, actualRenderer, rendererFallback, supportsSkyline, running}}" />
   <view class="intro">
     <text class="eyebrow">NATIVE TODO / V1</text>
     <text class="title">小程序响应基准</text>
@@ -8,9 +12,7 @@
   <view class="panel">
     <view class="heading">其他原生场景</view>
     <view class="suite-links">
-      <navigator class="suite-link" url="/pages/news/index">新闻</navigator>
-      <navigator class="suite-link" url="/pages/editor/index">编辑器</navigator>
-      <navigator class="suite-link" url="/pages/charts/index">图表</navigator>
+      <navigator wx:for="{{sceneLinks}}" wx:key="id" class="suite-link" url="{{item.url}}"><text>{{item.label}}</text></navigator>
     </view>
   </view>
 
@@ -62,3 +64,4 @@
     </view>
   </view>
 </view>
+</scroll-view>

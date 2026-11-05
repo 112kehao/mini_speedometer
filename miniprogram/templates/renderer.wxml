@@ -1,0 +1,26 @@
+<template name="renderer-navigation">
+  <view wx:if="{{configuredRenderer === 'skyline'}}" class="renderer-navigation" style="padding-top: {{statusBarHeight}}px;">
+    <view class="renderer-navigation-content">
+      <button class="home-button" disabled="{{running}}" bindtap="onSceneHome">首页</button>
+      <text class="renderer-navigation-title">小程序响应基准</text>
+    </view>
+  </view>
+</template>
+
+<template name="renderer-controls">
+  <view class="renderer-controls">
+    <radio-group wx:if="{{supportsSkyline}}" class="renderer-options" bindchange="onRendererChange">
+      <label class="renderer-option">
+        <radio value="webview" checked="{{configuredRenderer === 'webview'}}" disabled="{{running}}" color="#2457c5" />
+        <text>WebView</text>
+      </label>
+      <label class="renderer-option">
+        <radio value="skyline" checked="{{configuredRenderer === 'skyline'}}" disabled="{{running}}" color="#2457c5" />
+        <text>Skyline</text>
+      </label>
+    </radio-group>
+    <text wx:else class="hint">编辑器 · WebView</text>
+    <view class="hint">实际渲染器：{{actualRenderer}}</view>
+    <view wx:if="{{rendererFallback}}" class="renderer-warning">配置与实际渲染器不一致</view>
+  </view>
+</template>

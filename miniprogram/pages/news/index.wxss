@@ -2,6 +2,7 @@
 
 .news-header {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
 }
@@ -17,6 +18,7 @@
 
 .news-menu {
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
   gap: 12rpx;
   margin-top: 18rpx;
@@ -55,6 +57,7 @@
 
 .story {
   display: flex;
+  flex-direction: row;
   align-items: flex-start;
   gap: 18rpx;
   padding: 20rpx 0;

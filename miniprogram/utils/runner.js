@@ -1,4 +1,5 @@
 const { scoreRound, summarizeScores } = require('./score');
+const { rendererInfo } = require('./renderer-page');
 
 const WARMUP_ROUNDS = 2;
 const MEASURED_ROUNDS = 10;
@@ -108,8 +109,7 @@ function getEnvironment(page) {
     platform: device.platform,
     wechatVersion: app.version,
     sdkVersion: app.SDKVersion,
-    renderer: page.renderer || 'unknown',
-    configuredRenderer: 'webview'
+    ...rendererInfo(page)
   };
 }
 
