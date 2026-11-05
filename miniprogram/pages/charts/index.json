@@ -1,1 +1,1 @@
-{ "navigationBarTitleText": "Canvas 图表基准" }
+{ "navigationBarTitleText": "Canvas 图表基准", "renderer": "webview" }

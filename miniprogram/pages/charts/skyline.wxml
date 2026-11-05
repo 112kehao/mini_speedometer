@@ -1,0 +1,3 @@
+<import src="../../templates/benchmark.wxml" />
+<import src="../../templates/renderer.wxml" />
+<include src="./index.wxml" />

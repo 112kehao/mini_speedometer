@@ -1,12 +1,24 @@
 # 小程序 Speedometer
 
-参考 Speedometer 3.1 的微信小程序响应基准，包含 Todo、新闻导航、编辑器和图表四类负载。项目使用 WXML、WXSS、JavaScript 和微信小程序的 WebView 渲染器，测试数据均在本地生成。
+参考 Speedometer 3.1 的微信小程序响应基准，包含 Todo、新闻导航、编辑器和图表四类负载。项目使用 WXML、WXSS、JavaScript，Todo、新闻和图表支持 WebView/Skyline 对照，编辑器使用 WebView，测试数据均在本地生成。
 
 ## 运行
 
 1. 在微信开发者工具中导入此项目的根目录。项目内的 `touristappid` 用于本地模拟器调试。真机预览时在开发者工具中选择有开发权限的小程序 AppID。
 2. 编译后进入 Todo 首页。从「其他原生场景」进入新闻、编辑器或图表页面。各页面均支持手动体验，也可以点击「开始测试」，执行 2 轮预热和 10 轮正式测量。
 3. 查看小程序场景分、95% 置信区间、阶段耗时中位数、单次响应 P50 和 P95。点击「复制原始 JSON」可导出有效轮次、逐轮分数、评分汇总、无效轮次原因、设备环境、计时时钟和操作耗时。
+
+## WebView / Skyline 切换
+
+- Todo、新闻和图表页面顶部提供 WebView/Skyline 选项。切换通过 `wx.redirectTo` 打开同一场景的另一个页面，不是动态修改当前页面的渲染引擎；会重置当前输入、手动操作状态及报告，需先复制要保留的结果。
+- 默认仍为 WebView，`pages/{todo,news,charts}/index` 为 WebView 页面，对应的 `skyline` 为 Skyline 页面。两者复用 `page.js` 工厂、WXML 和样式，保持数据、操作数量、评分公式和计时终点一致。测试中禁止切换引擎。
+- Skyline 页面使用 `glass-easel`、自定义导航及 `scroll-view`；WebView 页面保留原组件框架，因此对照反映完整页面栈的差异，不能将分数差完全归因于渲染引擎本身。
+- 微信当前不支持 Skyline `editor`，故没有编辑器 Skyline 页面；从 Skyline Todo 进入编辑器会明确打开 WebView 页面，不以其他组件替代原编辑器负载。
+- 开发者工具使用支持 Skyline 的近期版本，在本地设置开启 Skyline 渲染调试，基础库选择 3.8.0 或更高版本。此版本下限是本项目的配置选择；真机还需满足相应微信客户端支持条件。
+- 配置已关闭 Skyline AB 灰度。低版本、桌面环境或强制渲染设置仍可能导致实际引擎与配置不同，应以页面显示的实际渲染器及 JSON 的 `environment.renderer` 为准；`configuredRenderer` 保存配置，`rendererFallback` 标记已知的不一致，未知实际引擎记为 `unknown`，不冒充 Skyline 结果。
+- Skyline Canvas 按官方支持说明需使用真机验证，不应把开发者工具中的 Canvas 不支持当作设备性能结果。真实导航、组件布局、滚动和 Canvas 帧回调需在微信环境验收。
+
+运行全部自动化测试：在本仓库目录执行 `node --test tests/*.test.js`。
 
 ## 负载与计时终点
 

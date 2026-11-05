@@ -3,9 +3,23 @@
     "pages/todo/index",
     "pages/news/index",
     "pages/editor/index",
-    "pages/charts/index"
+    "pages/charts/index",
+    "pages/todo/skyline",
+    "pages/news/skyline",
+    "pages/charts/skyline"
   ],
   "renderer": "webview",
+  "lazyCodeLoading": "requiredComponents",
+  "rendererOptions": {
+    "skyline": {
+      "defaultDisplayBlock": true,
+      "defaultContentBox": true,
+      "tagNameStyleIsolation": "legacy",
+      "disableABTest": true,
+      "sdkVersionBegin": "3.8.0",
+      "sdkVersionEnd": "15.255.255"
+    }
+  },
   "window": {
     "navigationBarTitleText": "小程序 Speedometer",
     "navigationBarBackgroundColor": "#f3f5f8",

@@ -1,5 +1,6 @@
 const { benchmarkPage } = require('../../utils/benchmark-page');
 const { createRunControl, measureSeries, updatePage, waitForCallback } = require('../../utils/runner');
+const { rendererPage } = require('../../utils/renderer-page');
 
 const CODE_LINES = 240;
 const RICH_PARAGRAPHS = 160;
@@ -81,7 +82,7 @@ const suite = {
   }
 };
 
-Page({
+Page(rendererPage({
   ...benchmarkPage(suite, { loadingExample: false }),
 
   onEditorReady() {
@@ -111,4 +112,4 @@ Page({
       if (!this.unloaded) this.setData({ ready: true, loadingExample: false });
     }
   }
-});
+}, 'editor', 'webview'));

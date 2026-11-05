@@ -1,0 +1,2 @@
+<import src="../../templates/renderer.wxml" />
+<include src="./index.wxml" />
