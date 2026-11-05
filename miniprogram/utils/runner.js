@@ -1,3 +1,5 @@
+const { scoreRound, summarizeScores } = require('./score');
+
 const WARMUP_ROUNDS = 2;
 const MEASURED_ROUNDS = 10;
 const EXTRA_ATTEMPTS = 3;
@@ -145,8 +147,15 @@ async function runSuite(page, run, suite) {
         if (run.reason) throw new Error(run.reason);
         steps.push({ id: step.id, ...result });
       }
+      const totalMs = steps.reduce((total, step) => {
+        if (!Number.isFinite(step.elapsedMs) || step.elapsedMs < 0) {
+          throw new Error('阶段耗时无效，无法计分');
+        }
+        return total + step.elapsedMs;
+      }, 0);
+      const scoring = scoreRound([totalMs]);
       if (warmup) report.warmupCompleted++;
-      else report.rounds.push({ attempt, steps });
+      else report.rounds.push({ attempt, steps, scoring });
     } catch (error) {
       report.invalidRounds.push({ attempt, warmup, step: currentStep, reason: error.message });
     }
@@ -156,6 +165,7 @@ async function runSuite(page, run, suite) {
   report.status = run.reason ? 'stopped' : report.rounds.length === MEASURED_ROUNDS ? 'complete' : 'incomplete';
   report.stopReason = run.reason;
   report.summary = summarize(report.rounds, suite.steps, operationColumns.indexOf('responseMs'));
+  report.scoring = summarizeScores(report.rounds.map((round) => round.scoring), report.status === 'complete');
   return report;
 }
 
